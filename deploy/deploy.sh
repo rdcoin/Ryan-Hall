@@ -14,4 +14,4 @@ aws deploy create-deployment \
   --deployment-config-name CodeDeployDefault.AllAtOnce \
   --deployment-group-name CryptoShipsVerifyAPI-Deploy-Rinkeby \
   --description "Deployment" \
-  --github-location repository=ryanrhall/cryptoships,commitId=$MASTER_COMMIT_HASH
+  --github-location repository=ryanrhall/CryptoShipsVerifyAPI,commitId=$MASTER_COMMIT_HASH

@@ -2,11 +2,23 @@
   "name": "CryptoShipsVerifyAPI",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
+    "deploy": "./deploy/deploy.sh",
+    "server:dev": "NODE_ENV=development node ./src/server.js",
+    "server:prod": "NODE_ENV=production npx forever start ./src/server.js",
+    "server:stop": "npx forever stop ./src/server.js || true",
+    "ssh": "ssh -i ~/keys/ryan_laptop_aws.pem ubuntu@34.226.136.190",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "forever": "^0.15.3",
+    "puppeteer": "^1.12.2",
+    "web3": "^1.0.0-beta.47"
+  }
 }
