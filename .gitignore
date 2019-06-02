@@ -1,6 +1,7 @@
 # external libries
 node_modules/*
 build/*
+contracts/*
 
 # log files
 *.log

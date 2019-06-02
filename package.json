@@ -5,6 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "deploy": "./deploy/deploy.sh",
+    "postinstall": "npm run fetch_contracts",
+    "fetch_contracts": "chmod +x lib/fetch_contracts.sh; ./lib/fetch_contracts.sh",
     "server:dev": "NODE_ENV=development node ./src/server.js",
     "server:prod": "NODE_ENV=production npx forever start ./src/server.js",
     "server:stop": "npx forever stop ./src/server.js || true",
@@ -19,6 +21,7 @@
     "express": "^4.16.4",
     "forever": "^0.15.3",
     "puppeteer": "^1.12.2",
+    "truffle": "^5.0.20",
     "web3": "^1.0.0-beta.47"
   }
 }
