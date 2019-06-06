@@ -11,15 +11,31 @@ const endpoint = process.env.NODE_ENV === "production" ? RINKEBY_ENDPOINT : DEV_
 // configure web3
 const web3 = new Web3(new Web3.providers.HttpProvider(endpoint));
 
+// main parse function
 async function parse(contractAddress) {
   // find contract
   const scholarship = new web3.eth.Contract(scholarshipContractABI, contractAddress);
-  result = {};
-  for (let i = 0; i < CONTRACT_PROPERTIES.length; i++) {
-    let property = CONTRACT_PROPERTIES[i];
-    result[property] = await scholarship.methods[property].call();
+  return {
+    courseName: await scholarship.methods.courseName().call(),
+    schoolName: await scholarship.methods.schoolName().call(),
+    studentName: await scholarship.methods.studentName().call(),
+    startedOn: (await scholarship.methods.startedOn().call()).toNumber(),
+    daysToComplete: (await scholarship.methods.daysToComplete().call()).toNumber()
   }
-  return result;
 }
 
 exports.parse = parse;
+
+// if running file directly
+if (require.main === module) {
+  (async function(){
+    // grab key from command line args
+    const [ _, __, contractAddress, ...others ] = process.argv;
+    if(!contractAddress) {
+      console.log("contract address required");
+      process.exit();
+    }
+    // print result
+    console.log(await parse(contractAddress));
+  })()
+}

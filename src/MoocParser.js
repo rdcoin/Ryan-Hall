@@ -1,15 +1,15 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require("puppeteer");
 const { COURSERA_ENDPOINT } = require("../config/Constants.js")
 
 // main parse function
 async function parse(verificationKey) {
-  const browser = await puppeteer.launch({args: ['--no-sandbox']});
+  const browser = await puppeteer.launch({args: ["--no-sandbox"]});
   const page = await browser.newPage();
   let responseBody;
   try {
     // make request to coursera
-    const url = new URL(verificationKey, COURSERA_ENDPOINT);
-    await page.goto(url.href);
+    const url = `${COURSERA_ENDPOINT}/${verificationKey}`;
+    await page.goto(url);
     // extract course certificate information from page
     const certificateParams = await page.evaluate(_certificateInformationExtraction);
     responseBody = { status: "valid", ...certificateParams };
@@ -34,3 +34,17 @@ function _certificateInformationExtraction() {
 }
 
 exports.parse = parse;
+
+// if running file directly
+if (require.main === module) {
+  (async function(){
+    // grab key from command line args
+    const [ _, __, verificationKey, ...others ] = process.argv;
+    if(!verificationKey) {
+      console.log("verification key required");
+      process.exit();
+    }
+    // print result
+    console.log(await parse(verificationKey));
+  })()
+}
