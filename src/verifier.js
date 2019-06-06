@@ -1,6 +1,6 @@
-const assert = require('assert');
+const assert = require("assert");
 
-const NAME_KEYS = [ "courseName", "schoolName", "studentName" ]
+const NAME_KEYS = [ "courseName", "schoolName", "studentName" ];
 
 function verify({ contractData, verificationData }) {
   try {
@@ -10,7 +10,7 @@ function verify({ contractData, verificationData }) {
       nameKey = NAME_KEYS[i];
       assert(contractData[nameKey] === verificationData[nameKey]);
     }
-    // Ensure completion date in between start and end date
+    // Ensure completion date in between start date and end date
     let { completionDate } = verificationData;
     let { startedOn, daysToComplete } = contractData;
     [ completionDate, startedOn, daysToComplete ] = [ parseInt(completionDate), parseInt(startedOn), parseInt(daysToComplete) ];
@@ -22,10 +22,8 @@ function verify({ contractData, verificationData }) {
   }
 }
 
-function _daysToMilliseconds(nDays) {
-  return nDays * 24 * 60 * 60 * 1000;
+function _daysToMilliseconds(numDays) {
+  return numDays * 24 * 60 * 60 * 1000;
 }
-
-
 
 exports.verify = verify;
