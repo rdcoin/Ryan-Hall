@@ -3,6 +3,8 @@ os: linux
 files:
   - source: src/
     destination: /home/ubuntu/verify_api/src/
+  - source: lib/
+    destination: /home/ubuntu/verify_api/lib/
   - source: config/
     destination: /home/ubuntu/verify_api/config/
   - source: package.json
